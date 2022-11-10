@@ -6,6 +6,10 @@ func foo() int {
   return x
 }
 
+func bar() int {
+  return 1 * 1
+}
+
 func main() {
   fmt.Prinft("Hello world!")
 }
