@@ -13,7 +13,8 @@ jobs:
       - name: Get release tag via GH CLI
         id: get_tag
         run: |
-          gh api https://api.github.com/repos/SullyDevSquad/gitflow-example/releases | jq -r '.[] | select(.draft == true) | .tag_name'
+          tag=$(gh api https://api.github.com/repos/SullyDevSquad/gitflow-example/releases | jq -r '.[] | select(.draft == true) | .tag_name')
+          echo "tagName=$tag" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           
