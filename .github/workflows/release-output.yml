@@ -1,0 +1,20 @@
+name: Grab release tag as an output
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  getReleaseTag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.5.0
+        
+      - name: Get release tag via GH CLI
+        id: get_tag
+        run: |
+          tag=$(gh api https://api.github.com/repos/SullyDevSquad/github-flow-demo/releases | jq -r '.[] | select(.draft == true) | .tag_name')
+          echo "tagName=$tag" >> GITHUB_OUTPUT
+          
+      - name: Echo output
+        run: echo ${{ steps.get_tag.outputs.tagName }} 
